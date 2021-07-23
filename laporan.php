@@ -10,9 +10,7 @@ include 'include/functions.php';
  ?>
 
 <div class="content">
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-md-8">
+	
 				<div class="card-header card-header-primary">
 					<h4 class="card-title">
 						Masukkan Bulan dan Tahun
@@ -84,18 +82,8 @@ include 'include/functions.php';
                                 <div class="clearfix"></div> 
                         </form>
 				</div>
-			</div>
-		</div>
-	</div>
-	
 </div>
+	
 
 
-<?php 
-if (isset($_GET['filter'])) {
-    ?>
-    <h1>Hello</h1>
-<?php    
-}
 
- ?>

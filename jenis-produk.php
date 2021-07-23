@@ -250,6 +250,6 @@ include'include/functions.php';
 			</section>
 		</div>
 
-
+<?php include 'foot.php'; ?>
 
 

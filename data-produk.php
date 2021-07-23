@@ -186,5 +186,5 @@ include'include/functions.php';
 		</div>
 
 
-
+<?php include 'foot.php'; ?>
 
