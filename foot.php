@@ -3,7 +3,7 @@
         
         <!-- Specific Page Vendor -->       <script src="vendor/select2/js/select2.js"></script>        <script src="vendor/datatables/media/js/jquery.dataTables.min.js"></script>     <script src="vendor/datatables/media/js/dataTables.bootstrap4.min.js"></script>
 
-
+<!-- haha -->
         <!--(remove-empty-lines-end)-->
         
         <!-- Theme Base, Components and Settings -->
