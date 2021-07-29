@@ -10,6 +10,7 @@ include 'include/functions.php';
  ?>
 
 <div class="content">
+
 	
 	<div class="card-header card-header-primary">
 		<h4 class="card-title">
@@ -62,6 +63,7 @@ include 'include/functions.php';
 
                     <br>
                     <button type="submit">Cari</button>
+
                     
                 </form>
                 <br>
@@ -78,7 +80,7 @@ include 'include/functions.php';
 	</div>
 
                 
-</div>
+
 
 <?php 
 $no = 1;
@@ -86,53 +88,104 @@ $no = 1;
 if ((isset($_POST['periodebulan'])) && (isset($_POST['periodetahun']))) {
     $bulan=$_POST['periodebulan'];
     $tahun=$_POST['periodetahun'];
-    $sql = "SELECT * FROM PENILAIAN WHERE periodebulan=$bulan AND periodetahun=$tahun";
+   
+
 }else{
     $bulan = date('m');
     $tahun = date('y');
-    $sql = "SELECT FROM PENILAIAN WHERE periodebulan=$bulan AND periodetahun=$tahun";
+    
 }
-$result = mysqli_query($conn, $sql);
+
+
 
 
 ?>
 
-<div class="content">
+
     <div class="card-body">
     <h4>Data Penjualan SPK bulan <?= $bulan ?> tahun <?= $tahun ?></h4>
     <table class="table table-bordered table-striped mb-0">
         <thead>
             <tr>
                 <th>No</th>
-                <th>idpenilaian</th>
-                <th>idproduk</th>
-                <th>idkriteria</th>
-                <th>nilai</th>
-                <th>periode bulan</th>
-                <th>periode tahun</th>
+                <th>Nama Produk</th>
+                <th>Hasil Preferensi</th>
+                <th>Aksi</th>
+                
             </tr>
         </thead>
         <?php 
-        global $result;
-        while($row = mysqli_fetch_assoc($result)){?>
+        // global $result;
+        // while($row = mysqli_fetch_assoc($result)){?>
             <tbody>
                 <tr>
-                    <td><?= $no++; ?></td>
-                    <td><?= $row['idpenilaian']; ?></td>
-                    <td><?= $row['idproduk']; ?></td>
-                    <td><?= $row['idkriteria']; ?></td>
-                    <td><?= $row['nilai']; ?></td>
-                    <td><?= $row['periodebulan']; ?></td>
-                    <td><?= $row['periodetahun']; ?></td>
+                    <td>1</td>
+                    <td>Mug002</td>
+                    <td>0,84</td>
+                    <td><a href="" class="btn btn-success" title="Detail"><i class="fa fa-book"></i></a></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Balon002</td>
+                    <td>0,68</td>
+                    <td><a href="" class="btn btn-success" title="Detail"><i class="fa fa-book"></i></a></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Tumbler004</td>
+                    <td>0,64</td>
+                    <td><a href="" class="btn btn-success" title="Detail"><i class="fa fa-book"></i></a></td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Jam001</td>
+                    <td>0,58</td>
+                    <td><a href="" class="btn btn-success" title="Detail"><i class="fa fa-book"></i></a></td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Mug003</td>
+                    <td>0,57</td>
+                    <td><a href="" class="btn btn-success" title="Detail"><i class="fa fa-book"></i></a></td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>Mug001</td>
+                    <td>0,55</td>
+                    <td><a href="" class="btn btn-success" title="Detail"><i class="fa fa-book"></i></a></td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>Bag001</td>
+                    <td>0,53</td>
+                    <td><a href="" class="btn btn-success" title="Detail"><i class="fa fa-book"></i></a></td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>Flashdisk001</td>
+                    <td>0,48</td>
+                    <td><a href="" class="btn btn-success" title="Detail"><i class="fa fa-book"></i></a></td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>Payung001</td>
+                    <td>0,40</td>
+                    <td><a href="" class="btn btn-success" title="Detail"><i class="fa fa-book"></i></a></td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td>Tumbler003</td>
+                    <td>0,37</td>
+                    <td><a href="" class="btn btn-success" title="Detail"><i class="fa fa-book"></i></a></td>
                 </tr>
             </tbody>
-        <?php } ?>
+        
 
-        <?php if (mysqli_num_rows($result)) {?>
-            <tr><td colspan='7' text-align='center'><a href='laporan.php'></a></td></tr></tr>
-        <?php}else{?>
-            <tr><td>0result</td></tr>
-        <?php } ?>
+        
+            <!-- <tr><td colspan='7' text-align='center'><a href='laporan.php'></a></td></tr></tr>
+      
+            <tr><td>0result</td></tr> -->
+        
 
        
         
@@ -140,5 +193,5 @@ $result = mysqli_query($conn, $sql);
     <?php mysqli_close($conn); ?>
     </div>
 </div>
-
+</div>
 
