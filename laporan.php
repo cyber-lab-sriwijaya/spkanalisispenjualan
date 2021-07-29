@@ -1,193 +1,111 @@
 <?php
 session_start();
-if (!isset($_SESSION['login'])) {
+
+if (!isset($_SESSION["login"])) {
     header("Location: login.php");
-    exit();
+    exit;
 }
 
 include 'header.php';
 include 'include/functions.php';
+
 ?>
 
-<div class="content">
+<head>
+    <!-- Basic -->
+    <meta charset="UTF-8">
+
+    <title>Editable Tables | Porto Admin - Responsive HTML5 Template</title>
+    <meta name="keywords" content="HTML5 Admin Template" />
+    <meta name="description" content="Porto Admin - Responsive HTML5 Template">
+    <meta name="author" content="okler.net">
+
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <!-- Web Fonts  -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+
+    <!-- Vendor CSS -->
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="vendor/animate/animate.compat.css">
+
+    <link rel="stylesheet" href="vendor/font-awesome/css/all.min.css" />
+    <link rel="stylesheet" href="vendor/boxicons/css/boxicons.min.css" />
+    <link rel="stylesheet" href="vendor/magnific-popup/magnific-popup.css" />
+    <link rel="stylesheet" href="vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css" />
+
+    <!-- Specific Page Vendor CSS -->
+    <link rel="stylesheet" href="vendor/select2/css/select2.css" />
+    <link rel="stylesheet" href="vendor/select2-bootstrap-theme/select2-bootstrap.min.css" />
+    <link rel="stylesheet" href="vendor/datatables/media/css/dataTables.bootstrap4.css" />
+
+    <!--(remove-empty-lines-end)-->
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="css/theme.css" />
 
 
-    <div class="card-header card-header-primary">
-        <h4 class="card-title">
-            Masukkan Bulan dan Tahun
-        </h4>
-    </div>
-    <div class="card-body">
-        <?php if (isset($_GET['failed'])) { ?>
-            <div class="alert alert-danger col-4">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <i class="material-icons">close</i>
-                </button>
-                <span>
-                    <b> Data Gagal Diproses! </b>
-                </span>
-            </div>
-        <?php } ?>
-
-        <?php $arrNamaBulan = array("01" => "Januari", "02" => "Februari", "03" => "Maret", "04" => "April", "05" => "Mei", "06" => "Juni", "07" => "Juli", "08" => "Agustus", "09" => "September", "10" => "Oktober", "11" => "November", "12" => "Desember");
-
-        ?>
-        <form action="laporan.php" method="POST">
-            <select name="periodebulan" class="form-control">
-                <option selected>-pilih bulan-</option>
-                <?php
-                $no = 0;
-                foreach ($arrNamaBulan as $i) { ?>
-                    <option value="<?= $no++ ?>"><?php if ($no < 10) {
-                                                        echo $arrNamaBulan['0' . $no];
-                                                    } else {
-                                                        echo $arrNamaBulan[$no];
-                                                    } ?></option>
-                <?php } ?>
-            </select>
-            <br>
-
-            <select name="periodetahun" class="form-control">
-                <option value="">-Pilih tahun-</option>
-                <?php
-                $y = date('Y');
-                for ($i = $y - 5; $i <= $y + 5; $i++) {
-                    echo "<option value='$i'>$i</option>";
-                }
-                ?>
-            </select>
-            <br>
+    <!--(remove-empty-lines-end)-->
 
 
 
-            <br>
-            <button type="submit">Cari</button>
+    <!-- Theme Custom CSS -->
+    <link rel="stylesheet" href="css/custom.css">
 
+    <!-- Head Libs -->
+    <script type="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="vendor/modernizr/modernizr.js"></script>
+    <script src="master/style-switcher/style.switcher.localstorage.js"></script>
+</head>
 
-        </form>
-        <br>
-        <?php
-        if ((isset($_POST['periodebulan']) && $_POST['periodebulan'] != '') && (isset($_POST['periodetahun']) && $_POST['periodetahun'] != '')) {
-            $bulan = $_POST['periodebulan'];
-            $tahun = $_POST['periodetahun'];
-        } else {
-            $bulan = date('m');
-            $tahun = date('Y');
-        }
-        ?>
-        <strong>Bulan :<?php echo $arrNamaBulan[$bulan]; ?>, Tahun: <?php echo $tahun; ?></strong>
-    </div>
+<link rel="stylesheet" href="vendor/datatables/media/css/dataTables.bootstrap4.css" />
 
+<!-- start: page -->
+<?php include 'saw.php'; ?>
+<section class="card">
+    <header class="card-header">
+        <div class="card-actions">
+            <a href="#" class="card-action card-action-toggle" data-card-toggle></a>
+            <a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
+        </div>
+        <h2 class="card-title">Laporan</h2>
+    </header>
 
-
-
-    <?php
-    $no = 1;
-
-    if ((isset($_POST['periodebulan'])) && (isset($_POST['periodetahun']))) {
-        $bulan = $_POST['periodebulan'];
-        $tahun = $_POST['periodetahun'];
-    } else {
-        $bulan = date('m');
-        $tahun = date('y');
-    }
-
-
-
-
-    ?>
 
 
     <div class="card-body">
-        <h4>Data Penjualan SPK bulan <?= $arrNamaBulan[$bulan] ?> tahun <?= $tahun ?></h4>
-        <table class="table table-bordered table-striped mb-0">
+        <table class="table table-bordered table-striped mb-0" id="example">
             <thead>
                 <tr>
-                    <th>No</th>
+                    <th>ID Produk</th>
                     <th>Nama Produk</th>
-                    <th>Hasil Preferensi</th>
                     <th>Aksi</th>
-
                 </tr>
             </thead>
-            <?php
-            // global $result;
-            // while($row = mysqli_fetch_assoc($result)){
-            ?>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Mug002</td>
-                    <td>0,84</td>
-                    <td><a href="" class="btn btn-success" title="Detail"><i class="fa fa-book"></i></a></td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Balon002</td>
-                    <td>0,68</td>
-                    <td><a href="" class="btn btn-success" title="Detail"><i class="fa fa-book"></i></a></td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Tumbler004</td>
-                    <td>0,64</td>
-                    <td><a href="" class="btn btn-success" title="Detail"><i class="fa fa-book"></i></a></td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>Jam001</td>
-                    <td>0,58</td>
-                    <td><a href="" class="btn btn-success" title="Detail"><i class="fa fa-book"></i></a></td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>Mug003</td>
-                    <td>0,57</td>
-                    <td><a href="" class="btn btn-success" title="Detail"><i class="fa fa-book"></i></a></td>
-                </tr>
-                <tr>
-                    <td>6</td>
-                    <td>Mug001</td>
-                    <td>0,55</td>
-                    <td><a href="" class="btn btn-success" title="Detail"><i class="fa fa-book"></i></a></td>
-                </tr>
-                <tr>
-                    <td>7</td>
-                    <td>Bag001</td>
-                    <td>0,53</td>
-                    <td><a href="" class="btn btn-success" title="Detail"><i class="fa fa-book"></i></a></td>
-                </tr>
-                <tr>
-                    <td>8</td>
-                    <td>Flashdisk001</td>
-                    <td>0,48</td>
-                    <td><a href="" class="btn btn-success" title="Detail"><i class="fa fa-book"></i></a></td>
-                </tr>
-                <tr>
-                    <td>9</td>
-                    <td>Payung001</td>
-                    <td>0,40</td>
-                    <td><a href="" class="btn btn-success" title="Detail"><i class="fa fa-book"></i></a></td>
-                </tr>
-                <tr>
-                    <td>10</td>
-                    <td>Tumbler003</td>
-                    <td>0,37</td>
-                    <td><a href="" class="btn btn-success" title="Detail"><i class="fa fa-book"></i></a></td>
-                </tr>
+                <?php
+                $i = 0;
+                $produk = mysqli_query($conn, "SELECT * FROM produk");
+                while ($row = mysqli_fetch_assoc($produk)) { ?>
+                    <tr>
+                        <td><?= $row['idproduk']; ?></td>
+                        <td><?= $row['namaproduk']; ?></td>
+                        <td><?= round($sum_arr[$i], 3); ?></td>
+                    </tr>
+
+                <?php $i++;
+                } ?>
             </tbody>
-
-
-
-            <!-- <tr><td colspan='7' text-align='center'><a href='laporan.php'></a></td></tr></tr>
-      
-            <tr><td>0result</td></tr> -->
-
-
-
-
         </table>
-        <?php mysqli_close($conn); ?>
+
+        <script>
+            $(document).ready(function() {
+                $('#example').DataTable();
+            });
+        </script>
     </div>
-</div>
-</div>
+</section>
+
+<?php include 'foot.php'; ?>
