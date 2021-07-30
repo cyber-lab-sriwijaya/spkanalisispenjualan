@@ -70,7 +70,7 @@ include 'include/functions.php';
             <a href="#" class="card-action card-action-toggle" data-card-toggle></a>
             <a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
         </div>
-        <h2 class="card-title">Laporan</h2>
+        <h2 class="card-title">Laporan Perankingan</h2>
     </header>
 
 
